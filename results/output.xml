@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.14.7 on win32)" generated="2026-10-08T17:06:12.586964" rpa="false" schemaversion="5">
+<suite id="s1" name="Challenge" source="C:\testRoot\tests\challenge.robot">
+<kw name="Create Directory" owner="OperatingSystem" type="SETUP">
+<msg time="2026-10-08T17:06:12.945200" level="INFO" html="true">Directory '&lt;a href="file://C:\testRoot\downloads"&gt;C:\testRoot\downloads&lt;/a&gt;' already exists.</msg>
+<arg>${DOWNLOAD_DIR}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2026-10-08T17:06:12.944841" elapsed="0.000572"/>
+</kw>
+<test id="s1-t1" name="Upload a CSV file and validate" line="14">
+<kw name="Open Browser For Upload" owner="common" type="SETUP">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:06:12.954699" level="INFO">Opening browser 'Chrome' to base url 'https://the-internet.herokuapp.com/upload'.</msg>
+<arg>${UPLOAD_URL}</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-10-08T17:06:12.954223" elapsed="31.483235"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2026-10-08T17:06:44.437782" elapsed="0.001209"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-08T17:06:44.439193" elapsed="0.020549"/>
+</kw>
+<doc>Opens Chrome for the upload test.</doc>
+<status status="PASS" start="2026-10-08T17:06:12.953533" elapsed="31.506419"/>
+</kw>
+<kw name="Choose File" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:06:44.461155" level="INFO">Sending C:\testRoot\test_data\upload_data.csv to browser.</msg>
+<arg>id=file-upload</arg>
+<arg>${CSV_FILE}</arg>
+<doc>Inputs the ``file_path`` into the file input field ``locator``.</doc>
+<status status="PASS" start="2026-10-08T17:06:44.460427" elapsed="0.039285"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:06:44.500760" level="INFO">Clicking button 'id=file-submit'.</msg>
+<arg>id=file-submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-08T17:06:44.500212" elapsed="30.878901"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath=//*[contains(text(), "File Uploaded!")]</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-08T17:07:15.379631" elapsed="0.021604"/>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:07:15.411378" level="INFO">Current page contains text 'upload_data.csv'.</msg>
+<arg>upload_data.csv</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="PASS" start="2026-10-08T17:07:15.401680" elapsed="0.010319"/>
+</kw>
+<kw name="Close Browser Safely" owner="common" type="TEARDOWN">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-10-08T17:07:15.413565" elapsed="2.130216"/>
+</kw>
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-08T17:07:15.412937" elapsed="2.131046"/>
+</kw>
+<doc>Uploads a CSV file and validates the success message and filename.</doc>
+<status status="PASS" start="2026-10-08T17:06:12.945617" elapsed="64.598594"/>
+</test>
+<test id="s1-t2" name="Download a file and validate" line="23">
+<kw name="Open Browser For Download" owner="common" type="SETUP">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-08T17:07:17.551858" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x000001CEAA49B610&gt;</msg>
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-08T17:07:17.551243" elapsed="0.000788"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-10-08T17:07:17.552952" level="INFO">${prefs} = {'download.default_directory': 'C:\\testRoot\\downloads', 'download.prompt_for_download': False, 'download.directory_upgrade': True, 'safebrowsing.enabled': False}</msg>
+<var>${prefs}</var>
+<arg>download.default_directory=C:\\testRoot\\downloads</arg>
+<arg>download.prompt_for_download=${FALSE}</arg>
+<arg>download.directory_upgrade=${TRUE}</arg>
+<arg>safebrowsing.enabled=${FALSE}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-10-08T17:07:17.552268" elapsed="0.000831"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_experimental_option</arg>
+<arg>prefs</arg>
+<arg>${prefs}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-10-08T17:07:17.553326" elapsed="0.000548"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-10-08T17:07:17.554456" level="INFO">${arg} = --disable-features=InsecureDownloadWarnings</msg>
+<var>${arg}</var>
+<arg>--disable-features=InsecureDownloadWarnings</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-10-08T17:07:17.554070" elapsed="0.000581"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>${arg}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-10-08T17:07:17.554830" elapsed="0.000429"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:07:17.555732" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2026-10-08T17:07:17.555459" elapsed="1.163854"/>
+</kw>
+<kw name="Get Library Instance" owner="BuiltIn">
+<msg time="2026-10-08T17:07:18.720606" level="INFO">${lib} = &lt;SeleniumLibrary.SeleniumLibrary object at 0x000001CEAA168AD0&gt;</msg>
+<var>${lib}</var>
+<arg>SeleniumLibrary</arg>
+<doc>Returns the currently active instance of the specified library.</doc>
+<status status="PASS" start="2026-10-08T17:07:18.719774" elapsed="0.001303"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-10-08T17:07:18.722574" level="INFO">${driver} = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="b6d1064e007f26f09b0d64f2ba5f9537")&gt;</msg>
+<var>${driver}</var>
+<arg>${lib.driver}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-10-08T17:07:18.721497" elapsed="0.001550"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-10-08T17:07:18.724253" level="INFO">${params} = {'behavior': 'allow', 'downloadPath': 'C:\\testRoot\\downloads'}</msg>
+<var>${params}</var>
+<arg>behavior=allow</arg>
+<arg>downloadPath=C:\\testRoot\\downloads</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-10-08T17:07:18.723449" elapsed="0.001132"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${driver}</arg>
+<arg>execute_cdp_cmd</arg>
+<arg>Page.setDownloadBehavior</arg>
+<arg>${params}</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2026-10-08T17:07:18.724915" elapsed="0.005324"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:07:18.731627" level="INFO">Opening url 'https://the-internet.herokuapp.com/download'</msg>
+<arg>${DOWNLOAD_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-10-08T17:07:18.730765" elapsed="30.614124"/>
+</kw>
+<kw name="Set Selenium Timeout" owner="SeleniumLibrary">
+<arg>${TIMEOUT}</arg>
+<doc>Sets the timeout that is used by various keywords.</doc>
+<status status="PASS" start="2026-10-08T17:07:49.345147" elapsed="0.001046"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-10-08T17:07:49.346400" elapsed="0.031519"/>
+</kw>
+<doc>Opens Chrome with automatic downloads enabled.</doc>
+<status status="PASS" start="2026-10-08T17:07:17.550822" elapsed="31.827290"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>css=a[href*="download/"]</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-10-08T17:07:49.378452" elapsed="0.036032"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-10-08T17:07:59.417479" level="INFO">Slept 10 seconds.</msg>
+<arg>10s</arg>
+<doc>Pauses execution for the given time.</doc>
+<status status="PASS" start="2026-10-08T17:07:49.415365" elapsed="10.003092"/>
+</kw>
+<kw name="Get WebElements" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:07:59.437752" level="INFO">${links} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="b6d1064e007f26f09b0d64f2ba5f9537", element="f.4B2F485134F6094A043057B74F85BA54.d.43B640143F37F4892E04CFA745DC4E96.e.9")&gt;, &lt;selenium.webdrive...</msg>
+<var>${links}</var>
+<arg>css=a[href*="download/"]</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<status status="PASS" start="2026-10-08T17:07:59.420259" elapsed="0.017686"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-10-08T17:07:59.439465" level="INFO">Length is 170.</msg>
+<msg time="2026-10-08T17:07:59.439848" level="INFO">${link_count} = 170</msg>
+<var>${link_count}</var>
+<arg>${links}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-10-08T17:07:59.438535" elapsed="0.001475"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${link_count} &gt; 0</arg>
+<arg>No downloadable files were found on the page.</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-08T17:07:59.440533" elapsed="0.000631"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-10-08T17:07:59.441869" level="INFO">${download_link} = &lt;selenium.webdriver.remote.webelement.WebElement (session="b6d1064e007f26f09b0d64f2ba5f9537", element="f.4B2F485134F6094A043057B74F85BA54.d.43B640143F37F4892E04CFA745DC4E96.e.9")&gt;</msg>
+<var>${download_link}</var>
+<arg>${links}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an `index` from `list`.</doc>
+<status status="PASS" start="2026-10-08T17:07:59.441532" elapsed="0.000671"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:07:59.453551" level="INFO">${filename} = genia-navegador-47d9e644.txt</msg>
+<var>${filename}</var>
+<arg>${download_link}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-08T17:07:59.442642" elapsed="0.011243"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-10-08T17:07:59.455089" level="INFO">Length is 28.</msg>
+<arg>${filename}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-10-08T17:07:59.454385" elapsed="0.000931"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-10-08T17:07:59.456408" level="INFO">Clicking element '&lt;selenium.webdriver.remote.webelement.WebElement (session="b6d1064e007f26f09b0d64f2ba5f9537", element="f.4B2F485134F6094A043057B74F85BA54.d.43B640143F37F4892E04CFA745DC4E96.e.9")&gt;'.</msg>
+<arg>${download_link}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-10-08T17:07:59.455954" elapsed="0.187156"/>
+</kw>
+<kw name="Wait Until File Is Downloaded" owner="common">
+<kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2026-10-08T17:07:59.645349" level="FAIL">File 'C:\testRoot\downloads\genia-navegador-47d9e644.txt' does not exist.</msg>
+<arg>${DOWNLOAD_DIR}${/}${filename}</arg>
+<doc>Fails unless the given `path` points to an existing file.</doc>
+<status status="FAIL" start="2026-10-08T17:07:59.644903" elapsed="0.005404">File 'C:\testRoot\downloads\genia-navegador-47d9e644.txt' does not exist.</status>
+</kw>
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2026-10-08T17:08:00.153607" level="INFO" html="true">File '&lt;a href="file://C:\testRoot\downloads\genia-navegador-47d9e644.txt"&gt;C:\testRoot\downloads\genia-navegador-47d9e644.txt&lt;/a&gt;' exists.</msg>
+<arg>${DOWNLOAD_DIR}${/}${filename}</arg>
+<doc>Fails unless the given `path` points to an existing file.</doc>
+<status status="PASS" start="2026-10-08T17:08:00.151919" elapsed="0.002786"/>
+</kw>
+<arg>${timeout}</arg>
+<arg>500ms</arg>
+<arg>File Should Exist</arg>
+<arg>${DOWNLOAD_DIR}${/}${filename}</arg>
+<doc>Runs the specified keyword and retries if it fails.</doc>
+<status status="PASS" start="2026-10-08T17:07:59.644199" elapsed="0.511245"/>
+</kw>
+<arg>${filename}</arg>
+<status status="PASS" start="2026-10-08T17:07:59.643660" elapsed="0.512607"/>
+</kw>
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2026-10-08T17:08:00.159263" level="INFO" html="true">File '&lt;a href="file://C:\testRoot\downloads\genia-navegador-47d9e644.txt"&gt;C:\testRoot\downloads\genia-navegador-47d9e644.txt&lt;/a&gt;' exists.</msg>
+<arg>${DOWNLOAD_DIR}${/}${filename}</arg>
+<doc>Fails unless the given `path` points to an existing file.</doc>
+<status status="PASS" start="2026-10-08T17:08:00.157677" elapsed="0.002432"/>
+</kw>
+<kw name="Get File Size" owner="OperatingSystem">
+<msg time="2026-10-08T17:08:00.162710" level="INFO" html="true">Size of file '&lt;a href="file://C:\testRoot\downloads\genia-navegador-47d9e644.txt"&gt;C:\testRoot\downloads\genia-navegador-47d9e644.txt&lt;/a&gt;' is 30 bytes.</msg>
+<msg time="2026-10-08T17:08:00.163350" level="INFO">${file_size} = 30</msg>
+<var>${file_size}</var>
+<arg>${DOWNLOAD_DIR}${/}${filename}</arg>
+<doc>Returns and logs file size as an integer in bytes.</doc>
+<status status="PASS" start="2026-10-08T17:08:00.161405" elapsed="0.002463"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${file_size} &gt; 0</arg>
+<arg>Downloaded file is empty: ${filename}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-08T17:08:00.164983" elapsed="0.001477"/>
+</kw>
+<kw name="Run Keywords" owner="BuiltIn" type="TEARDOWN">
+<kw name="Close Browser Safely" owner="common">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-10-08T17:08:00.170375" elapsed="2.198543"/>
+</kw>
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-08T17:08:00.169483" elapsed="2.200091"/>
+</kw>
+<kw name="Remove downloaded file" owner="common">
+<kw name="File Should Exist" owner="OperatingSystem">
+<msg time="2026-10-08T17:08:02.373226" level="INFO" html="true">File '&lt;a href="file://C:\testRoot\downloads\genia-navegador-47d9e644.txt"&gt;C:\testRoot\downloads\genia-navegador-47d9e644.txt&lt;/a&gt;' exists.</msg>
+<arg>${fileToRemove}</arg>
+<doc>Fails unless the given `path` points to an existing file.</doc>
+<status status="PASS" start="2026-10-08T17:08:02.372323" elapsed="0.001125"/>
+</kw>
+<kw name="Remove File" owner="OperatingSystem">
+<msg time="2026-10-08T17:08:02.374457" level="INFO" html="true">Removed file '&lt;a href="file://C:\testRoot\downloads\genia-navegador-47d9e644.txt"&gt;C:\testRoot\downloads\genia-navegador-47d9e644.txt&lt;/a&gt;'.</msg>
+<arg>${fileToRemove}</arg>
+<doc>Removes a file with the given path.</doc>
+<status status="PASS" start="2026-10-08T17:08:02.373625" elapsed="0.001052"/>
+</kw>
+<arg>${DOWNLOAD_DIR}${/}${filename}</arg>
+<status status="PASS" start="2026-10-08T17:08:02.370491" elapsed="0.004372"/>
+</kw>
+<arg>Close Browser Safely</arg>
+<arg>AND</arg>
+<arg>Remove downloaded file</arg>
+<arg>${DOWNLOAD_DIR}${/}${filename}</arg>
+<doc>Executes all the given keywords in a sequence.</doc>
+<status status="PASS" start="2026-10-08T17:08:00.167713" elapsed="2.207361"/>
+</kw>
+<doc>Downloads the first available file and verifies that it exists and is not empty.</doc>
+<status status="PASS" start="2026-10-08T17:07:17.547722" elapsed="44.827754"/>
+</test>
+<test id="s1-t3" name="Compare two JSON" line="42">
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2026-10-08T17:08:02.383406" level="INFO">${json1} = {'user': {'id': 123, 'name': 'Pedro', 'active': True}, 'roles': ['admin', 'tester'], 'department': 'Engineering'}</msg>
+<var>${json1}</var>
+<arg>${JSON1_FILE}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2026-10-08T17:08:02.382553" elapsed="0.001012"/>
+</kw>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2026-10-08T17:08:02.384838" level="INFO">${json2} = {'user': {'id': 123, 'name': 'Pedro', 'active': True}, 'roles': ['admin', 'tester'], 'department': 'Engineering'}</msg>
+<var>${json2}</var>
+<arg>${JSON2_FILE}</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2026-10-08T17:08:02.384150" elapsed="0.001015"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${json1}</arg>
+<arg>${json2}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-10-08T17:08:02.385639" elapsed="0.000600"/>
+</kw>
+<doc>Loads two JSON files and performs a full key/value comparison.</doc>
+<status status="PASS" start="2026-10-08T17:08:02.379199" elapsed="0.007352"/>
+</test>
+<kw name="Close Browser Safely" owner="common" type="TEARDOWN">
+<kw name="Close All Browsers" owner="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-10-08T17:08:02.394762" elapsed="0.000266"/>
+</kw>
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-10-08T17:08:02.394215" elapsed="0.000944"/>
+</kw>
+<doc>Robot Framework automation challenge: upload, download file and compare JSON.</doc>
+<status status="PASS" start="2026-10-08T17:06:12.592508" elapsed="109.802745"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Challenge" id="s1" pass="3" fail="0" skip="0">Challenge</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
