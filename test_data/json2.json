@@ -1,0 +1,12 @@
+{
+  "user": {
+    "id": 123,
+    "name": "Pedro",
+    "active": true
+  },
+  "roles": [
+    "admin",
+    "tester"
+  ],
+  "department": "Engineering"
+}
